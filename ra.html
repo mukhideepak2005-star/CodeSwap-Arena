@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOLISTIC INTERVIEW system | Interview Report</title>
+    <script>
+        (function () {
+            const stored = localStorage.getItem("hii_theme");
+            if (stored === "light" || stored === "dark") {
+                document.documentElement.setAttribute("data-theme", stored);
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/your-key.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <h2><i></i>Holistic interview system:</i></h2>
+            <ul class="sidebar-nav" id="sidebar-nav" data-default-page="dashboard">
+                <li class="active">
+                    <button class="nav-link" type="button" data-page="dashboard">Dashboard</button>
+                </li>
+                <li>
+                    <button class="nav-link" type="button" data-page="resume-analysis">Resume Analysis</button>
+                </li>
+                <li>
+                    <button class="nav-link" type="button" data-page="improvement-plan">Improvement Plan</button>
+                </li>
+            </ul>
+            <div class="sidebar-actions">
+                <button class="theme-toggle" type="button" data-theme-toggle>Bright mode</button>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <section class="page-section is-active" id="dashboard-section">
+                <header>
+                    <h1>Interview Performance Analysis</h1>
+                    <p>WELCOME</p>
+                    <a class="live-link" href="live.html">Go to Live Interview</a>
+                </header>
+
+                <div class="metrics-grid">
+                    <div class="card score-card">
+                        <h3>Overall Readiness</h3>
+                        <div class="radial-score">0%</div>
+                    </div>
+
+                    <div class="card stat-card green">
+                        <h4>Speech Clarity</h4>
+                        <p class="value" id="wpm-value">0 WPM</p>
+                        <p class="label">Steady Pace</p>
+                    </div>
+
+                    <div class="card stat-card yellow">
+                        <h4>Eye Contact</h4>
+                        <p class="value">0%</p>
+                        <p class="label">Look at camera precisely</p>
+                    </div>
+
+                    <div class="card stat-card red">
+                        <h4>Filler Words</h4>
+                        <p class="value" id="filler-value">12</p>
+                        <p class="label" id="filler-label">High usage of "Um"</p>
+                    </div>
+
+                    <div class="card stat-card blue">
+                        <h4>Sentiment</h4>
+                        <p class="value" id="sentiment-value">Neutral</p>
+                        <p class="label" id="sentiment-label">Overall tone</p>
+                    </div>
+
+                    <div class="card stat-card green">
+                        <h4>Tone Modulation</h4>
+                        <p class="value" id="tone-modulation-value">N/A</p>
+                        <p class="label" id="tone-modulation-label">Vary your tone</p>
+                    </div>
+
+                    <div class="card stat-card yellow">
+                        <h4>Confidence Level</h4>
+                        <p class="value" id="confidence-level-value">N/A</p>
+                        <p class="label" id="confidence-level-label">Delivery confidence</p>
+                    </div>
+                </div>
+
+                <section class="feedback-section">
+                    <div class="card">
+                        <div class="history-header">
+                            <h3>Transcript History</h3>
+                            <button class="secondary-btn" type="button" id="clear-transcript-history">Clear</button>
+                        </div>
+                        <div class="transcript-history" id="transcript-history"></div>
+                        <p class="status" id="transcript-history-empty">No saved transcripts yet.</p>
+                    </div>
+                </section>
+
+            </section>
+
+            <section class="page-section" id="resume-section">
+                <header>
+                    <h1>Resume Analysis</h1>
+                    <p>Upload your resume and practice live questions tailored to your profile.</p>
+                    <a class="live-link" href="live.html">Go to Live Interview</a>
+                </header>
+
+                <section class="upload-section">
+                    <h3>Upload Resume</h3>
+                    <div class="role-pack">
+                        <label for="role-select">Role Pack</label>
+                        <select id="role-select">
+                            <option value="">General (Recommended)</option>
+                            <option value="Frontend Engineer">Frontend Engineer</option>
+                            <option value="Backend Engineer">Backend Engineer</option>
+                            <option value="Full Stack Engineer">Full Stack Engineer</option>
+                            <option value="Data Scientist">Data Scientist</option>
+                            <option value="Product Manager">Product Manager</option>
+                            <option value="UX Designer">UX Designer</option>
+                            <option value="Marketing Specialist">Marketing Specialist</option>
+                        </select>
+                        <p class="muted">Pick a role to tailor the question pack.</p>
+                    </div>
+                    <form id="resume-form">
+                        <input id="resume-file" type="file" accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
+                        <button type="submit">Build Questions</button>
+                        <span id="resume-status"></span>
+                    </form>
+                </section>
+
+                <section class="resume-questions">
+                    <h3>Live Session Questions</h3>
+                    <div class="question-card">
+                        <p class="question-label">Current question</p>
+                        <p id="live-question">Upload your resume to generate questions.</p>
+                    </div>
+                    <div class="question-actions">
+                        <label class="toggle">
+                            <input type="checkbox" id="tts-toggle" checked>
+                            <span>Read questions aloud</span>
+                        </label>
+                        <button type="button" class="primary-btn" id="start-session">Start Live Session</button>
+                        <button type="button" class="secondary-btn" id="next-question">Ask Next Question</button>
+                    </div>
+                    <div class="question-list">
+                        <p class="question-label">Upcoming questions</p>
+                        <ul id="question-list"></ul>
+                    </div>
+                </section>
+            </section>
+
+            <section class="page-section" id="improvement-section">
+                <header>
+                    <h1>Improvement Plan</h1>
+                    <p>Personalized action items will appear here after your analysis.</p>
+                </header>
+                <div class="card">
+                    <p>No plan generated yet. Analyze a session to see coaching steps.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="theme.js"></script>
+    <script>
+        const sidebarNav = document.getElementById("sidebar-nav");
+        const navLinks = sidebarNav ? Array.from(sidebarNav.querySelectorAll(".nav-link")) : [];
+        const sectionsByPage = {
+            "dashboard": "dashboard-section",
+            "resume-analysis": "resume-section",
+            "improvement-plan": "improvement-section"
+        };
+
+        const setActiveNav = (pageKey) => {
+            if (!sidebarNav || !pageKey) return;
+            const items = sidebarNav.querySelectorAll("li");
+            items.forEach((item) => {
+                const link = item.querySelector(".nav-link");
+                const isActive = link && link.dataset.page === pageKey;
+                item.classList.toggle("active", isActive);
+                if (link) {
+                    link.setAttribute("aria-current", isActive ? "page" : "false");
+                }
+            });
+
+            Object.entries(sectionsByPage).forEach(([key, sectionId]) => {
+                const section = document.getElementById(sectionId);
+                if (!section) return;
+                const isSectionActive = key === pageKey;
+                section.classList.toggle("is-active", isSectionActive);
+                section.setAttribute("aria-hidden", isSectionActive ? "false" : "true");
+            });
+        };
+
+        const getInitialNav = () => {
+            const hashPage = window.location.hash.replace("#", "");
+            if (hashPage) return hashPage;
+            const stored = localStorage.getItem("hii_active_nav");
+            if (stored) return stored;
+            return sidebarNav?.dataset.defaultPage || navLinks[0]?.dataset.page;
+        };
+
+        setActiveNav(getInitialNav());
+
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                const pageKey = link.dataset.page;
+                setActiveNav(pageKey);
+                if (pageKey) {
+                    localStorage.setItem("hii_active_nav", pageKey);
+                    history.replaceState(null, "", `#${pageKey}`);
+                }
+            });
+        });
+
+        window.addEventListener("hashchange", () => {
+            const pageKey = window.location.hash.replace("#", "");
+            if (pageKey) setActiveNav(pageKey);
+        });
+
+        const resumeForm = document.getElementById("resume-form");
+        const resumeFileInput = document.getElementById("resume-file");
+        const resumeTextInput = document.getElementById("resume-text");
+        const resumeStatus = document.getElementById("resume-status");
+        const roleSelect = document.getElementById("role-select");
+        const liveQuestionEl = document.getElementById("live-question");
+        const questionListEl = document.getElementById("question-list");
+        const startSessionBtn = document.getElementById("start-session");
+        const nextQuestionBtn = document.getElementById("next-question");
+        const ttsToggle = document.getElementById("tts-toggle");
+
+        let resumeQuestionBank = [];
+        let currentQuestionIndex = -1;
+
+        const RESUME_API_URL = "http://127.0.0.1:8000/resume-questions";
+        const baseQuestions = [
+            "Walk me through your resume.",
+            "What project are you most proud of and why?",
+            "Tell me about a time you faced a challenge and how you handled it.",
+            "How do you prioritize tasks when deadlines are tight?",
+            "What are you looking for in your next role?"
+        ];
+
+        const skillKeywords = [
+            "python", "java", "javascript", "react", "node", "aws", "azure", "gcp",
+            "sql", "postgres", "mongodb", "docker", "kubernetes", "ml", "ai",
+            "data", "analytics", "flask", "django", "fastapi", "tensorflow", "pytorch"
+        ];
+
+        const normalizeText = (text) => (text || "").toLowerCase();
+
+        const extractSkills = (text) => {
+            const normalized = normalizeText(text);
+            const found = new Set();
+            skillKeywords.forEach((keyword) => {
+                if (normalized.includes(keyword)) {
+                    found.add(keyword.toUpperCase());
+                }
+            });
+            return Array.from(found);
+        };
+
+        const buildQuestionBank = (resumeText) => {
+            const questions = [...baseQuestions];
+            const skills = extractSkills(resumeText);
+            if (skills.length) {
+                skills.slice(0, 6).forEach((skill) => {
+                    questions.push(`Tell me about a project where you used ${skill}.`);
+                    questions.push(`How do you stay current with ${skill} best practices?`);
+                });
+            } else if (resumeText && resumeText.length > 40) {
+                questions.push("Which achievement on your resume had the biggest impact?");
+                questions.push("What did you learn from your most recent role?");
+            } else {
+                questions.push("Share a recent accomplishment that highlights your strengths.");
+            }
+            questions.push("What questions do you have for me?");
+            return questions;
+        };
+
+        const fetchResumeQuestions = async (resumeText, role) => {
+            try {
+                const res = await fetch(RESUME_API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: resumeText, role: role || null, count: 10 })
+                });
+                if (!res.ok) return null;
+                const payload = await res.json();
+                return payload?.questions || null;
+            } catch (err) {
+                return null;
+            }
+        };
+
+        const renderQuestionList = () => {
+            if (!questionListEl) return;
+            questionListEl.innerHTML = "";
+            resumeQuestionBank.forEach((question, index) => {
+                const li = document.createElement("li");
+                li.textContent = index === currentQuestionIndex ? `Now: ${question}` : question;
+                questionListEl.appendChild(li);
+            });
+        };
+
+        const speakQuestion = (text) => {
+            if (!ttsToggle?.checked || !("speechSynthesis" in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+            window.speechSynthesis.speak(utterance);
+        };
+
+        const showQuestion = (question) => {
+            if (liveQuestionEl) {
+                liveQuestionEl.textContent = question;
+                speakQuestion(question);
+            }
+            renderQuestionList();
+        };
+
+        const moveToNextQuestion = () => {
+            if (!resumeQuestionBank.length) {
+                showQuestion("Upload your resume to generate questions.");
+                return;
+            }
+            currentQuestionIndex += 1;
+            if (currentQuestionIndex >= resumeQuestionBank.length) {
+                currentQuestionIndex = resumeQuestionBank.length - 1;
+                showQuestion("Session complete. Review your answers and restart if needed.");
+                return;
+            }
+            showQuestion(resumeQuestionBank[currentQuestionIndex]);
+        };
+
+        const startSession = () => {
+            if (!resumeQuestionBank.length) {
+                showQuestion("Upload your resume to generate questions.");
+                return;
+            }
+            currentQuestionIndex = -1;
+            moveToNextQuestion();
+        };
+
+        if (resumeForm) {
+            resumeForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                resumeStatus.textContent = "Generating questions...";
+                let resumeText = resumeTextInput?.value || "";
+                const role = roleSelect?.value || "";
+
+                const file = resumeFileInput?.files?.[0];
+                if (file && file.type.startsWith("text/")) {
+                    resumeText = await file.text();
+                } else if (file) {
+                    resumeStatus.textContent = "Resume uploaded. Paste key highlights for tailored questions.";
+                }
+
+                const apiQuestions = await fetchResumeQuestions(resumeText, role);
+                resumeQuestionBank = (apiQuestions && apiQuestions.length)
+                    ? apiQuestions
+                    : buildQuestionBank(resumeText);
+                currentQuestionIndex = -1;
+                showQuestion("Ready when you are. Click Start Live Session.");
+                resumeStatus.textContent = apiQuestions ? "Questions ready." : "Questions ready (offline mode).";
+
+                localStorage.setItem("hii_resume_text", resumeText);
+                localStorage.setItem("hii_resume_questions", JSON.stringify(resumeQuestionBank));
+                if (role) {
+                    localStorage.setItem("hii_resume_role", role);
+                } else {
+                    localStorage.removeItem("hii_resume_role");
+                }
+            });
+        }
+
+        startSessionBtn?.addEventListener("click", startSession);
+        nextQuestionBtn?.addEventListener("click", moveToNextQuestion);
+
+        const savedQuestions = localStorage.getItem("hii_resume_questions");
+        if (savedQuestions) {
+            try {
+                resumeQuestionBank = JSON.parse(savedQuestions) || [];
+                showQuestion("Ready when you are. Click Start Live Session.");
+            } catch (err) {
+                resumeQuestionBank = [];
+            }
+        }
+
+        const savedRole = localStorage.getItem("hii_resume_role");
+        if (savedRole && roleSelect) {
+            roleSelect.value = savedRole;
+        }
+
+        const TRANSCRIPT_HISTORY_KEY = "hii_transcript_history";
+        const transcriptHistoryEl = document.getElementById("transcript-history");
+        const transcriptHistoryEmptyEl = document.getElementById("transcript-history-empty");
+        const clearTranscriptHistoryBtn = document.getElementById("clear-transcript-history");
+
+        const loadTranscriptHistory = () => {
+            try {
+                const raw = localStorage.getItem(TRANSCRIPT_HISTORY_KEY);
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (err) {
+                return [];
+            }
+        };
+
+        const renderTranscriptHistory = () => {
+            if (!transcriptHistoryEl) return;
+            const entries = loadTranscriptHistory();
+            transcriptHistoryEl.innerHTML = "";
+
+            if (!entries.length) {
+                if (transcriptHistoryEmptyEl) transcriptHistoryEmptyEl.style.display = "block";
+                return;
+            }
+
+            if (transcriptHistoryEmptyEl) transcriptHistoryEmptyEl.style.display = "none";
+            entries.forEach((entry) => {
+                const wrapper = document.createElement("div");
+                wrapper.className = "transcript-entry";
+
+                const title = document.createElement("h5");
+                const timeLabel = entry?.timestamp
+                    ? new Date(entry.timestamp).toLocaleString()
+                    : "Saved session";
+                const words = Number.isFinite(entry?.words) ? `${entry.words} words` : "Words: N/A";
+                title.textContent = `${timeLabel} · ${words}`;
+
+                const text = document.createElement("p");
+                text.textContent = entry?.text || "";
+
+                wrapper.append(title, text);
+                transcriptHistoryEl.appendChild(wrapper);
+            });
+        };
+
+        if (clearTranscriptHistoryBtn) {
+            clearTranscriptHistoryBtn.addEventListener("click", () => {
+                localStorage.removeItem(TRANSCRIPT_HISTORY_KEY);
+                renderTranscriptHistory();
+            });
+        }
+
+        window.addEventListener("storage", (e) => {
+            if (e.key === TRANSCRIPT_HISTORY_KEY) {
+                renderTranscriptHistory();
+            }
+        });
+
+        renderTranscriptHistory();
+    </script>
+</body>
+</html>

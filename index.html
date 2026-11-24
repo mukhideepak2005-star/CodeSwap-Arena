@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holistic Interview intelligence | Home</title>
+    <script>
+        (function () {
+            const stored = localStorage.getItem("hii_theme");
+            if (stored === "light" || stored === "dark") {
+                document.documentElement.setAttribute("data-theme", stored);
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="home">
+    <div class="home-shell">
+        <header class="home-header">
+            <div class="brand">
+                <span class="brand-mark"></span>
+                Holistic Interview intelligence
+            </div>
+            <nav class="home-nav">
+                <a href="ra.html">Dashboard</a>
+                <a href="live.html">Live Interview</a>
+                <button class="theme-toggle" type="button" data-theme-toggle>Bright mode</button>
+            </nav>
+        </header>
+
+        <main class="home-hero">
+            <section class="hero-card">
+                <span class="hero-kicker">AI Interview Coaching</span>
+                <h1>Practice with instant feedback and walk into the interview confident.</h1>
+                <p>
+                    Holistic Interview blends resume insights, live body-language tracking, and speech analysis so you
+                    can rehearse like it is the real thing.
+                </p>
+                <div class="hero-actions">
+                    <a class="start-btn" href="ra.html">Start</a>
+                    <a class="secondary-link" href="live.html">Jump to Live Interview</a>
+                </div>
+            </section>
+
+            <section class="hero-panels">
+                <div class="hero-panel">
+                    <h3>Resume-Driven Questions</h3>
+                    <p>Generate tailored prompts from your resume and practice answer flow.</p>
+                </div>
+                <div class="hero-panel">
+                    <h3>Live Coaching</h3>
+                    <p>Track eye contact, posture, gestures, and tone as you speak.</p>
+                </div>
+                <div class="hero-panel">
+                    <h3>Performance Insights</h3>
+                    <p>Spot fillers, pacing, and confidence trends with real-time metrics.</p>
+                </div>
+            </section>
+        </main>
+
+        <section class="home-grid">
+            <article class="feature-card">
+                <h4>Step 1</h4>
+                <p>Upload your resume or jump straight into a mock session.</p>
+            </article>
+            <article class="feature-card">
+                <h4>Step 2</h4>
+                <p>Practice with the live camera, transcript, and coaching overlay.</p>
+            </article>
+            <article class="feature-card">
+                <h4>Step 3</h4>
+                <p>Review your analysis and iterate with stronger answers.</p>
+            </article>
+        </section>
+    </div>
+    <script src="theme.js"></script>
+</body>
+
+</html>
