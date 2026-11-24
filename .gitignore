@@ -1,7 +1,33 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+*.env
+.env.example
+
+# Runtime artifacts
+*.db
+data/
+
+# Build/dist artifacts
+dist/
+*.dist
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
 __pycache__/
 *.pyc
 .venv/
 .venv.zip
-.vscode/
 captured_postures/
-*.log

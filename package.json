@@ -1,0 +1,25 @@
+{
+  "name": "codeswap-arena",
+  "version": "1.0.0",
+  "description": "CodeSwap Arena - Multi-organizer, multi-contest, multiplayer code debugging competition platform",
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,green\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start": "cd backend && npm start"
+  },
+  "keywords": [
+    "coding-contest",
+    "debugging",
+    "code-swap",
+    "judge0",
+    "react",
+    "express"
+  ],
+  "author": "CodeSwap Arena Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
